@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: visitor-app
+  labels:
+    app: visitor-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: visitor-app
+  template:
+    metadata:
+      labels:
+        app: visitor-app
+    spec:
+      containers:
+      - name: visitor-app
+        image: iamsujeesh/visitor-app:1.0
+        ports:
+        - containerPort: 5000
+        env:
+        - name: REDIS_HOST
+          value: "redis"
+        - name: REDIS_PORT
+          value: "6379"
