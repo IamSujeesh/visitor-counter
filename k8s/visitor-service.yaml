@@ -1,3 +1,4 @@
+# visitor-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -7,6 +8,7 @@ spec:
     app: visitor-app
   ports:
     - protocol: TCP
-      port: 5000
-      targetPort: 5000
-  type: LoadBalancer   # Exposes app publicly on EC2
+      port: 5000         # ClusterIP port
+      targetPort: 5000   # Container port
+      nodePort: 31816    # NodePort (30000-32767)
+  type: NodePort
