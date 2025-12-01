@@ -21,8 +21,6 @@ Redis
 
 📌 Architecture Diagram
 
-(You should insert an actual image here — see instructions below)
-
                      +---------------------------+
                      |        User Browser       |
                      |  http://EC2_PUBLIC_IP:31816
