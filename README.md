@@ -1,7 +1,7 @@
 🚀 Visitor Counter – DevOps End-to-End Project
 
 This project demonstrates a complete DevOps workflow starting from local development → Docker → Kubernetes (kubeadm cluster on AWS EC2).
-It uses a Python Flask application + Redis to track visitor counts.
+It uses a Python Flask web app + Redis to track and display visitor counts.
 
 🧰 Tools Used
 
@@ -19,8 +19,7 @@ Kubernetes (kubeadm)
 
 Redis
 
-📌 Architecture Diagram
-
+📌 Architecture Diagram (ASCII)
                      +---------------------------+
                      |        User Browser       |
                      |  http://EC2_PUBLIC_IP:31816
@@ -46,6 +45,9 @@ Redis
       |               +-------------------+                   |
       ---------------------------------------------------------
 
+
+
+
 📁 Project Structure
 visitor-counter/
 │── app.py
@@ -58,9 +60,9 @@ visitor-counter/
     │── visitor-deployment.yaml
     │── visitor-service.yaml
 
-📌 1. Local Project Setup
+📌 1. Project Setup on Local Machine
 
-Project located at:
+The project folder is located at:
 
 C:\Users\Sujeesh\Desktop\visitor-counter
 
@@ -81,16 +83,16 @@ docker --version
 Build Image
 docker build -t visitor-app:1.0 C:\Users\Sujeesh\Desktop\visitor-counter
 
-List Images
+Verify Image
 docker images
 
 Run App Container
 docker run -d -p 5000:5000 --name visitor-container visitor-app:1.0
 
-View Running Containers
+Check Running Containers
 docker ps
 
-📌 3. Run Redis Container
+📌 3. Redis Container Setup
 docker run -d --name redis -p 6379:6379 redis
 docker ps
 
@@ -99,7 +101,8 @@ docker stop visitor-container
 docker rm visitor-container
 docker run -d --name visitor-app --link redis -p 5000:5000 visitor-app:1.0
 
-Verify in Browser
+
+Test app locally:
 
 👉 http://localhost:5000
 
@@ -109,18 +112,20 @@ docker tag visitor-app:1.0 iamsujeesh/visitor-app:1.0
 docker push iamsujeesh/visitor-app:1.0
 docker pull iamsujeesh/visitor-app:1.0
 
-📌 6. Kubernetes Setup on AWS EC2 (kubeadm)
+📌 6. Kubernetes Setup on AWS EC2 (kubeadm Cluster)
 
-Kubeadm guide reference:
-👉 https://github.com/yeshwanthlm/Kubeadm-Installation-Guide
+For setting up Kubernetes, I followed this guide:
+🔗 https://github.com/yeshwanthlm/Kubeadm-Installation-Guide
 
-EC2 Setup
+🔹 EC2 Setup
+
+Create 2 instances:
 
 Master Node
 
 Worker Node
 
-Install Kubernetes Components
+🔹 Install Kubernetes Components (both nodes)
 
 kubeadm
 
@@ -128,14 +133,14 @@ kubelet
 
 kubectl
 
-(Installed as per guide)
+(Installation steps are in the guide.)
 
-📌 7. Deploy Application on Kubernetes Cluster
+📌 7. Deploy Application in Kubernetes
 Clone Repository
 git clone https://github.com/IamSujeesh/visitor-counter.git
 cd visitor-counter
 
-Apply Kubernetes Manifests
+Apply Manifests
 kubectl apply -f k8s/redis-deployment.yaml
 kubectl apply -f k8s/visitor-deployment.yaml
 kubectl apply -f k8s/visitor-service.yaml
@@ -147,35 +152,39 @@ kubectl get svc
 Access Application
 http://<Worker Public IP>:<NodePort>
 
-🖥 8. High-Level Architecture Flow
+🖥 8. High-Level Architecture Overview
 
-Developer Laptop:
+Developer Laptop
+│
+├── VS Code → Python Code
+├── Git → GitHub
+└── Docker → Build Image → Push to Docker Hub
+│
+▼
+AWS EC2 – Kubernetes Cluster
+│
+├── Master Node → kubeadm init → deploy YAMLs
+└── Worker Node → Redis Pod + Visitor App Pods
 
-VS Code → Python Code
+⭐ Flow Summary
 
-Git → Push to GitHub
+Code → written in VS Code
 
-Docker → Build Image → Push to Docker Hub
+Containerized → Docker
 
-AWS EC2 Kubernetes Cluster:
+Image → pushed to Docker Hub
 
-Master Node
+Repo + YAML → GitHub
 
-kubeadm init
+Master node pulls repo → deploys
 
-Clone repo
+Pods run on worker
 
-Apply YAML files
+Redis + App communicate internally
 
-Worker Node
+User accesses via NodePort
 
-Redis Pod
-
-Visitor App Pods (3 replicas)
-
-Exposed via NodePort
-
-🎯 What This Project Demonstrates
+✅ Project Demonstrates
 
 Dockerization
 
@@ -183,16 +192,17 @@ Git version control
 
 Manual CI workflow
 
-Kubernetes setup (kubeadm)
+Kubernetes cluster setup (kubeadm)
 
-Multi-container architecture
+Multi-container app
 
-Redis + Flask communication
+Redis–App internal communication
 
-NodePort external access
+NodePort exposure
 
-Deployment & scaling
+Scaling with replicas
 
-🏁 End of Documentation
+🎯 End of Documentation
 
-This project showcases a complete DevOps workflow from coding → containerization → orchestration → cloud deployment.
+This project showcases end-to-end DevOps workflow
+from coding → containerization → orchestration → AWS deployment.
