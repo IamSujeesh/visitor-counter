@@ -204,8 +204,7 @@ kubectl get svc
 
 ![All-k8s-objects](Images/All-k8s-objects.png)
 
-Access Application
-http://<Worker-Public-IP>:<NodePort>
+Access Application 👉 http://worker-ip:NodePort
 
 ![Applicatiion-Access-Test](Images/Application-Access-Test.png)
 
