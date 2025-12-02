@@ -23,7 +23,7 @@ It uses a **Python Flask web app + Redis** to track and display visitor counts.
 
 ![Architecture Diagram](Images/architecture.png)
 
-> If image doesn’t load, refer to ASCII version below for architecture layout.
+> ASCII version below for architecture layout.
 
 🖊 ASCII Diagram
 
