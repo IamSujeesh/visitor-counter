@@ -25,6 +25,11 @@ It uses a **Python Flask web app + Redis** to track and display visitor counts.
 
 > ASCII version below for architecture layout.
 
+
+
+
+
+
 🖊 ASCII Diagram
 
                      +---------------------------+
