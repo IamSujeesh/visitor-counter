@@ -97,7 +97,11 @@ git config --global --list
 git remote add origin https://github.com/IamSujeesh/visitor-counter.git
 git branch -M main
 git push -u origin main
+```
 
+![git-push](Images/git-push.png)
+
+```sh
 📌 2. Docker – Build, Run, Test Locally
 
 Check Docker Version:
@@ -105,10 +109,18 @@ docker --version
 
 Build Docker Image:
 docker build -t visitor-app:1.0 C:\Users\Sujeesh\Desktop\visitor-counter
+```
 
+![docker-build](Images/docker-build.png)
+
+```sh
 Verify Image:
 docker images
+```
 
+![docker-images](Images/docker-images.png)
+
+```sh
 Run App Container:
 docker run -d -p 5000:5000 --name visitor-container visitor-app:1.0
 
@@ -118,21 +130,36 @@ docker ps
 📌 3. Redis Container Setup
 docker run -d --name redis -p 6379:6379 redis
 docker ps
+```
 
+![redis-container](Images/redis-container.png)
+
+```sh
 📌 4. Link App with Redis
 docker stop visitor-container
 docker rm visitor-container
 docker run -d --name visitor-app --link redis -p 5000:5000 visitor-app:1.0
+```
 
+![App-container+redis-link](Images/app-container-redis-link.png)
 
 Test locally: 👉 http://localhost:5000
 
+![local-test](Images/local-test.png)
+
+```sh
 📌 5. Docker Hub – Login, Tag, Push
 docker login
 docker tag visitor-app:1.0 iamsujeesh/visitor-app:1.0
 docker push iamsujeesh/visitor-app:1.0
 docker pull iamsujeesh/visitor-app:1.0
+```
 
+![image-tag-push](Images/docker-image-tag-push-dhub.png)
+
+![DockerHub](Images/DockerHub.png)
+
+```sh
 📌 6. Kubernetes Setup on AWS EC2 (kubeadm Cluster)
 Follow this guide:
 🔗 https://github.com/yeshwanthlm/Kubeadm-Installation-Guide
@@ -145,7 +172,15 @@ Install Kubernetes Components (both nodes):
 kubeadm
 kubelet
 kubectl
+```
 
+![Master-Worker-EC2](Images/Master-Worker-EC2.png)
+
+![EC2-SG](Images/EC2-Security-groups.png)
+
+![kube-cluster-nodes](Images/kube-cluster-nodes.png)
+
+```sh
 📌 7. Deploy Application in Kubernetes
 Clone Repository
 git clone https://github.com/IamSujeesh/visitor-counter.git
@@ -155,14 +190,26 @@ Apply Manifests
 kubectl apply -f k8s/redis-deployment.yaml
 kubectl apply -f k8s/visitor-deployment.yaml
 kubectl apply -f k8s/visitor-service.yaml
+```
 
+![kubectl-apply](Images/kubectl-apply.png)
+
+```sh
 Verify
 kubectl get pods
 kubectl get svc
+```
+
+![kube-services](Images/kube-services.png)
+
+![All-k8s-objects](Images/All-k8s-objects.png)
 
 Access Application
-http://<Worker Public IP>:<NodePort>
+http://<Worker-Public-IP>:<NodePort>
 
+![Applicatiion-Access-Test](Images/Application-Access-Test.png)
+
+```text
 🖥 8. High-Level Architecture Overview
 Developer Laptop
 │
@@ -175,6 +222,7 @@ AWS EC2 – Kubernetes Cluster
 │
 ├── Master Node → kubeadm init → deploy YAMLs
 └── Worker Node → Redis Pod + Visitor App Pods
+```
 
 ⭐ Flow Summary
 Code → written in VS Code
