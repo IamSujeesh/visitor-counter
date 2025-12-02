@@ -1,25 +1,32 @@
-🚀 Visitor Counter – DevOps End-to-End Project
+# 🚀 Visitor Counter – DevOps End-to-End Project
 
-This project demonstrates a complete DevOps workflow starting from local development → Docker → Kubernetes (kubeadm cluster on AWS EC2).
-It uses a Python Flask web app + Redis to track and display visitor counts.
+My project demonstrates a complete DevOps workflow starting from **local development → Docker → Kubernetes (kubeadm cluster on AWS EC2)**.  
+It uses a **Python Flask web app + Redis** to track and display visitor counts.
 
-🧰 Tools Used
+---
 
-VS Code
+## 🧰 Tools Used
 
-Python
+- VS Code  
+- Python  
+- Docker Desktop  
+- Git / GitHub  
+- AWS EC2  
+- Kubernetes (kubeadm)  
+- Redis  
 
-Docker Desktop
+---
 
-Git / GitHub
+## 📌 Architecture Diagram
 
-AWS EC2
+### 🖼 Image Diagram
 
-Kubernetes (kubeadm)
+![Architecture Diagram](Images/architecture.png)
 
-Redis
+> If image doesn’t load, refer to ASCII version below for architecture layout.
 
-📌 Architecture Diagram (ASCII)
+🖊 ASCII Diagram
+
                      +---------------------------+
                      |        User Browser       |
                      |  http://EC2_PUBLIC_IP:31816
@@ -32,7 +39,7 @@ Redis
       |                                                       |
       |  +------------------+        +------------------+     |
       |  | visitor-app Pod  |        | visitor-app Pod  |     |
-      |  |  (Flask App)     |        |  (Flask App)     |     |
+      |  |  (Flask App)     |        | (Flask App)     |     |
       |  +--------+---------+        +---------+--------+     |
       |           |                            |              |
       |           +-------------+--------------+              |
@@ -47,26 +54,41 @@ Redis
 
 
 
+---
 
-📁 Project Structure
+## 📁 Project Structure
+
+```text
 visitor-counter/
-│── app.py
-│── Dockerfile
-│── requirements.txt
-│── README.md
-│── k8s/
-    │── redis-deployment.yaml
-    │── redis-service.yaml
-    │── visitor-deployment.yaml
-    │── visitor-service.yaml
+├── app.py
+├── Dockerfile
+├── requirements.txt
+├── README.md
+├── Images/
+│   └── architecture.png
+└── k8s/
+    ├── redis-deployment.yaml
+    ├── redis-service.yaml
+    ├── visitor-deployment.yaml
+    └── visitor-service.yaml
+```
 
-📌 1. Project Setup on Local Machine
 
-The project folder is located at:
+
+---
+
+##  Project Setup on Local Machine
+
+Project folder location:
 
 C:\Users\Sujeesh\Desktop\visitor-counter
 
-Git Initialization
+
+### 📌 Execution
+
+```sh
+📌 1. Git Initialization
+
 git --version
 git init
 git add .
@@ -77,19 +99,20 @@ git branch -M main
 git push -u origin main
 
 📌 2. Docker – Build, Run, Test Locally
-Check Docker Version
+
+Check Docker Version:
 docker --version
 
-Build Image
+Build Docker Image:
 docker build -t visitor-app:1.0 C:\Users\Sujeesh\Desktop\visitor-counter
 
-Verify Image
+Verify Image:
 docker images
 
-Run App Container
+Run App Container:
 docker run -d -p 5000:5000 --name visitor-container visitor-app:1.0
 
-Check Running Containers
+Check Running Containers:
 docker ps
 
 📌 3. Redis Container Setup
@@ -102,9 +125,7 @@ docker rm visitor-container
 docker run -d --name visitor-app --link redis -p 5000:5000 visitor-app:1.0
 
 
-Test app locally:
-
-👉 http://localhost:5000
+Test locally: 👉 http://localhost:5000
 
 📌 5. Docker Hub – Login, Tag, Push
 docker login
@@ -113,33 +134,23 @@ docker push iamsujeesh/visitor-app:1.0
 docker pull iamsujeesh/visitor-app:1.0
 
 📌 6. Kubernetes Setup on AWS EC2 (kubeadm Cluster)
-
-For setting up Kubernetes, I followed this guide:
+Follow this guide:
 🔗 https://github.com/yeshwanthlm/Kubeadm-Installation-Guide
 
-🔹 EC2 Setup
-
-Create 2 instances:
-
+EC2 Setup:
 Master Node
-
 Worker Node
 
-🔹 Install Kubernetes Components (both nodes)
-
+Install Kubernetes Components (both nodes):
 kubeadm
-
 kubelet
-
 kubectl
-
-(Installation steps are in the guide.)
 
 📌 7. Deploy Application in Kubernetes
 Clone Repository
 git clone https://github.com/IamSujeesh/visitor-counter.git
-cd visitor-counter
 
+cd visitor-counter
 Apply Manifests
 kubectl apply -f k8s/redis-deployment.yaml
 kubectl apply -f k8s/visitor-deployment.yaml
@@ -153,7 +164,6 @@ Access Application
 http://<Worker Public IP>:<NodePort>
 
 🖥 8. High-Level Architecture Overview
-
 Developer Laptop
 │
 ├── VS Code → Python Code
@@ -167,7 +177,6 @@ AWS EC2 – Kubernetes Cluster
 └── Worker Node → Redis Pod + Visitor App Pods
 
 ⭐ Flow Summary
-
 Code → written in VS Code
 
 Containerized → Docker
@@ -185,7 +194,6 @@ Redis + App communicate internally
 User accesses via NodePort
 
 ✅ Project Demonstrates
-
 Dockerization
 
 Git version control
@@ -194,15 +202,13 @@ Manual CI workflow
 
 Kubernetes cluster setup (kubeadm)
 
-Multi-container app
+Multi‑container application
 
 Redis–App internal communication
 
-NodePort exposure
+NodePort access
 
 Scaling with replicas
 
 🎯 End of Documentation
-
-This project showcases end-to-end DevOps workflow
-from coding → containerization → orchestration → AWS deployment.
+This project showcases an end‑to‑end DevOps workflow — from coding → containerization → orchestration → AWS deployment.
