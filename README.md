@@ -223,7 +223,9 @@ AWS EC2 – Kubernetes Cluster
 └── Worker Node → Redis Pod + Visitor App Pods
 ```
 
+```text
 ⭐ Flow Summary
+
 Code → written in VS Code
 
 Containerized → Docker
@@ -256,6 +258,7 @@ Redis–App internal communication
 NodePort access
 
 Scaling with replicas
+```
 
 🎯 End of Documentation
 This project showcases an end‑to‑end DevOps workflow — from coding → containerization → orchestration → AWS deployment.
